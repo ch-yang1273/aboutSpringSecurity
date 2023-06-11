@@ -1,21 +1,23 @@
 package study.security.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
-@Configuration
+//@EnableWebSecurity
 public class SecurityConfigV3_FormLogin {
 
     private final UserDetailsService userDetailsService;
 
     /**
+     * 기본적으로
+     * **********
      * authorizeRequests() : HTTP 서블릿 요청에 대한 보안을 구성할 때 사용한다.
      * anyRequest().authenticated() : 어떤 요청에 대해서든 인증을 받은 사용자만 접근을 허용한다.
      * **********
@@ -44,6 +46,16 @@ public class SecurityConfigV3_FormLogin {
      * rememberMeParameter : 쿠키, 파라미터
      * tokenValiditySeconds : 쿠키 유효 시간 설정. default는 14일
      * userDetailsService : 사용자의 정보를 불러온다.
+     * **********
+     * sessionManagement : 세션 관리 시작 (SessionManagementFilter, ConcurrentSessionFilter)
+     * sessionCreationPolicy
+     *   - Always : 항상 세션을 생성
+     *   - If_Required : (기본값) 필요한 경우에만 생성
+     *   - Never : 세션을 생성하지 않음. But 이미 존재하는 세션은 사용
+     *   - Stateless : 세션을 생성하거나, 사용하지 않음. JWT와 같은 토큰 기반 인증할 때 사용
+     * maximumSessions : 유지할 최대 세션
+     * maxSessionsPreventsLogin : true = 새로운 로그인 요청 차단, false = 기존 세션 만료
+     * expiredUrl : 세션 만료 시 이동
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -51,7 +63,7 @@ public class SecurityConfigV3_FormLogin {
         http
                 // 인가 정책
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().fullyAuthenticated()
                 .and()
                 // 인증 정책
                 .formLogin()
@@ -65,15 +77,22 @@ public class SecurityConfigV3_FormLogin {
                 .and()
                 // logout 정책
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout-page", "GET"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                 .logoutSuccessUrl("/login-page")
                 .deleteCookies("JSESSIONID", "remember-me")
                 .and()
                 // Remember-me
-                .rememberMe() // remember me 설정 시작
+                .rememberMe()
                 .rememberMeParameter("remember-me")
                 .tokenValiditySeconds(3600)
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .and()
+                // 세션 관리
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
+                .expiredUrl("/expired");
 
         return http.build();
     }

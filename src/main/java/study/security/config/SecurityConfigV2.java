@@ -1,8 +1,10 @@
 package study.security.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -14,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * Login URL : "/login"
  * Logout URL : "/logout"
  */
-//@Configuration
+//@EnableWebSecurity
 public class SecurityConfigV2 {
 
     // Spring Security 5.7 부터는 SecurityFilterChain Bean을 등록하는 방식을 권장
@@ -28,5 +30,18 @@ public class SecurityConfigV2 {
                 .formLogin();
 
         return http.build();
+    }
+
+
+    // In-Memory Authentication
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+
+        // 블로그 예제 내의 User.withDefaultPasswordEncoder()도 Deprecated 됐다. {noop} -> 비암호화
+        // {noop} 없이 하면 PasswordEncoder 없다고 에러난다.
+        manager.createUser(User.builder().username("testUser").password("{noop}1111").roles("USER").build());
+
+        return manager;
     }
 }

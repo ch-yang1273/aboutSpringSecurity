@@ -1,5 +1,6 @@
 package study.security.config;
 
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,7 +16,13 @@ public class SecurityConfigV1_Deprecated extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .anyRequest().authenticated()
-            .and()
+                .and()
                 .formLogin();
+    }
+
+    // In-Memory Authentication
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("testUser").password("(noop)1111").roles("USER");
     }
 }
