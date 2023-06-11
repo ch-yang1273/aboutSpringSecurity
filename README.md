@@ -3,7 +3,7 @@
 Spring Security에 대해 전반적인 실습을 진행했습니다.
 
 ## 1. Deprecated된 WebSecurityConfigurerAdapter을 상속
-[SecurityConfigV1_Deprecated.java](src/main/java/study/security/config/SecurityConfigV1_Deprecated.java)
+Config : [SecurityConfigV1_Deprecated.java](src/main/java/study/security/config/SecurityConfigV1_Deprecated.java)
 
 Spring Security 5.4 버전에서는 보안 설정을 위해 WebSecurityConfigurerAdapter 클래스를 상속받아 사용하며, 
 
@@ -11,7 +11,7 @@ configure(HttpSecurity http) 메서드를 오버라이드하여 원하는 설정
 
 ## 2. 컴포넌트 기반의 보안 설정으로 전환
 
-[SecurityConfigV2.java](src/main/java/study/security/config/SecurityConfigV2.java)
+Config : [SecurityConfigV2.java](src/main/java/study/security/config/SecurityConfigV2.java)
 
 Spring Security 5.7 부터는 SecurityFilterChain Bean을 등록하는 방식을 권장합니다.
 - 애플리케이션 실행 시 생성되는 security password와 `user` 아이디를 사용해서 로그인 테스트 가능
@@ -27,7 +27,7 @@ Spring Security 5.7 부터는 SecurityFilterChain Bean을 등록하는 방식을
 
 ## 3. Form Login 인증
 
-[SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/SecurityConfigV3_FormLogin.java)
+Config : [SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/SecurityConfigV3_FormLogin.java)
 
 - Form Login 방식의 인증을 하도록 설정
 - Spring Security가 제공하는 기본 Login Form 대신 Thymeleaf를 사용하여 재작성
@@ -85,7 +85,9 @@ Spring Security 5.7 부터는 SecurityFilterChain Bean을 등록하는 방식을
   - true : 새로운 로그인 요청을 차단
   - false : 기존 세션을 만료
 
-## 4. 인가(Authorization) 권한 설정
+## 4. 선언적 방식의 URL 인가(Authorization) 권한 설정
+
+Config : [SecurityConfigV4_Authorization.java](src/main/java/study/security/config/SecurityConfigV4_Authorization.java)
 
 ### URL Authorization 표현식
 
@@ -93,17 +95,31 @@ Spring Security 공식 API 문서 (v5.7.8) : [ExpressionUrlAuthorizationConfigur
 
 | Method                                     | Description |
 |:-------------------------------------------|:----|
-| `permitAll()`                              | 모든 사용자가 허용되는 URL을 지정할 수 있게 합니다. |
-| `denyAll()`                                | 아무도 허용되지 않는 URL을 지정할 수 있게 합니다. |
-| `authenticated()`                          | 인증된 사용자가 허용되는 URL을 지정할 수 있게 합니다. |
-| `anonymous()`                              | 익명 사용자가 허용되는 URL을 지정할 수 있게 합니다. |
-| `rememberMe()`                             | "remembered"된 사용자가 허용되는 URL을 지정할 수 있게 합니다. |
-| `fullyAuthenticated()`                     | 인증했지만 "remembered"되지 않은 사용자가 허용되는 URL을 지정할 수 있게 합니다. |
-| `hasAuthority(String authority)`           | URL이 특정 권한을 요구하도록 지정할 수 있게 합니다. |
-| `hasRole(String role)`                     | URL이 특정 역할을 요구하도록 지정하는 단축어입니다. |
-| `hasAnyAuthority(String... authorities)`   | URL이 여러 권한 중 어느 하나를 요구하도록 지정할 수 있게 합니다. |
-| `hasAnyRole(String... roles)`              | URL이 여러 역할 중 어느 하나를 요구하도록 지정할 수 있게 하는 단축어입니다. |
-| `hasIpAddress(String ipaddressExpression)` | URL이 특정 IP 주소 또는 서브넷을 요구하도록 지정할 수 있게 합니다. |
-| `access(String attribute)`                 | 임의의 표현식에 의해 보안된 URL을 지정할 수 있게 합니다. |
+| `permitAll()`                              | 모든 사용자가 허용되는 URL을 설정합니다. |
+| `denyAll()`                                | 아무도 허용되지 않는 URL을 설정합니다. |
+| `authenticated()`                          | 인증된 사용자가 허용되는 URL을 설정합니다. |
+| `anonymous()`                              | 익명 사용자가 허용되는 URL을 설정합니다. |
+| `rememberMe()`                             | "remembered"된 사용자가 허용되는 URL을 설정합니다. |
+| `fullyAuthenticated()`                     | 인증했지만 "remembered"되지 않은 사용자가 허용되는 URL을 설정합니다. |
+| `hasAuthority(String authority)`           | URL이 특정 권한을 요구하도록 설정합니다. |
+| `hasRole(String role)`                     | URL이 특정 역할을 요구하도록 설정하는 단축어입니다. |
+| `hasAnyAuthority(String... authorities)`   | URL이 여러 권한 중 어느 하나를 요구하도록 설정합니다. |
+| `hasAnyRole(String... roles)`              | URL이 여러 역할 중 어느 하나를 요구하도록 설정하는 단축어입니다. |
+| `hasIpAddress(String ipaddressExpression)` | URL이 특정 IP 주소 또는 서브넷을 요구하도록 설정합니다. |
+| `access(String attribute)`                 | 임의의 표현식에 의해 보안된 URL을 설정합니다. |
 | `not()`                                    | 다음 표현식을 부정합니다. |
 | `getMatchers()`                            | RequestMatcher의 리스트를 반환합니다. |
+
+### 주의 사항
+
+구체적인 경로를 먼저 설정하고, 그것보다 큰 범위의 경로는 뒤에 설정해야 합니다.
+
+```java
+.authorizeRequests()
+  .antMatchers("/v4/user").hasRole("USER")
+  // (선) 구체적인 경로
+  .antMatchers("/v4/sys/admin").hasRole("ADMIN")
+  // (후) 보다 넓은 범위의 경로
+  .antMatchers("/v4/sys/**").access("hasRole('ADMIN') or hasRole('SYS')")
+.anyRequest().permitAll()
+```
