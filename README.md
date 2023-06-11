@@ -123,3 +123,22 @@ Spring Security 공식 API 문서 (v5.7.8) : [ExpressionUrlAuthorizationConfigur
   .antMatchers("/v4/sys/**").access("hasRole('ADMIN') or hasRole('SYS')")
 .anyRequest().permitAll()
 ```
+
+### 인증/인가 예외 처리
+
+인증 예외 조건 (AuthenticationException 발생 조건)
+1. 사용자가 아직 인증되지 않았음
+2. 인증에 실패함 (올바르지 않은 아이디나 패스워드)
+
+인가 예외 조건 (AccessDeniedException 발생 조건)
+1. 권한이 없는 페이지 접근
+
+authenticationEntryPoint : 인증 실패 시 처리
+- Redirection은 굳이 이 핸들러를 설정하지 않아도 됩니다.
+- 특별히 처리 할 내용 없으면 설정 X
+
+accessDeniedHandler : 인가 실패 시 처리
+- 인가 실패는 처리하지 않으면 403 에러가 반환됩니다.
+
+accessDeniedPage : 인가 실패 시 리디렉션 할 페이지
+- 특별히 처리할 일 없으면 accessDeniedHandler말고 이 메서드 사용
