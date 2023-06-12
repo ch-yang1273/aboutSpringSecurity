@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfigV4_Authorization {
 
     // 테스트 용으로 InMemory 사용자를 생성

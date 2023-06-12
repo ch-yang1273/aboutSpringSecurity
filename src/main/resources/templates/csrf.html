@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: defaultHead(~{::title})}">
+  <title>Home</title>
+</head>
+<body>
+<nav th:replace="layout/top::defaultTop"></nav>
+<div class="container">
+  <h4>SecurityConfigV5_CSRF</h4>
+  <div class="row">
+    <h4 class="col-12">CSRF Test Form</h4>
+    <form th:action="@{/v5/csrf}" class="col-12" method="post">
+      <div class="form-group">
+        <label for="test">post text</label>
+        <input type="text" class="form-control" id="test" name="text" placeholder="text">
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary btn-block">POST</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

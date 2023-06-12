@@ -145,4 +145,62 @@ accessDeniedHandler : 인가 실패 시 처리
 - 인가 실패는 처리하지 않으면 403 에러가 반환됩니다.
 
 accessDeniedPage : 인가 실패 시 리디렉션 할 페이지
-- 특별히 처리할 일 없으면 accessDeniedHandler말고 이 메서드 사용
+- 특별히 처리할 내용 없으면 accessDeniedHandler 말고 이 메서드 사용
+
+## CSRF, CSRF 필터
+
+### CSRF
+
+참고 : [CSRF(Cross-Site Request Forgery) attack](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=aepkoreanet&logNo=221457283624)
+
+### CSRF 토큰을 사용한 방어
+
+HTTP 메서드 중 GET을 제외한 POST, PATCH, PUT, DELETE 요청에는 CSRF 토큰을 요구합니다.
+
+RESTful API에서는 JWT 또는 OAuth 등의 방식으로 인증을 처리하므로, 별도의 CSRF을 사용할 필요가 없습니다.
+
+```java
+http.csrf() // (Default) 활성화
+http.csrf().disabled() // 비활성화
+```
+
+*```Thymeleaf```는 자동으로 ```<input>``` 태그와 ```_csrf``` 토큰을 생성합니다.
+
+[csrf.html - Thymeleaf]
+```html
+<div class="container">
+  <h4>SecurityConfigV5_CSRF</h4>
+  <div class="row">
+    <h4 class="col-12">CSRF Test Form</h4>
+    <form th:action="@{/v5/csrf}" class="col-12" method="post">
+      <div class="form-group">
+        <label for="test">post text</label>
+        <input type="text" class="form-control" id="test" name="text" placeholder="text">
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary btn-block">POST</button>
+    </form>
+  </div>
+</div>
+```
+
+[생성 된 HTML의 Form]
+- ```Thymeleaf```에서 작성하지 않은 태그```<input type="hidden" name="_csrf" value="token">```가 삽입되어 있습니다.
+```html
+<div class="container">
+  <h4>SecurityConfigV5_CSRF</h4>
+  <div class="row">
+    <h4 class="col-12">CSRF Test Form</h4>
+    <form action="/v5/csrf" class="col-12" method="post"><input type="hidden" name="_csrf" value="85d2a4da-65f0-4e78-8ae7-9a5c359503f3"/>
+      <div class="form-group">
+        <label for="test">Post text</label>
+        <input type="text" class="form-control" id="test" name="text" placeholder="text">
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary btn-block">POST</button>
+    </form>
+  </div>
+</div>
+```
+
+## Reference
+
+- 정수원 - 스프링 시큐리티

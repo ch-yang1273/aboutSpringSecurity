@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/header :: defaultHead(~{::title})}">
-  <title>Home</title>
+  <title>CSRF Test</title>
 </head>
 <body>
 <nav th:replace="layout/top::defaultTop"></nav>
 <div class="container">
   <h4>SecurityConfigV4_Authorization</h4>
-  <ul>
+  <ul class="col-12">
     <li><a href="/v4/user">/v4/user</a></li>
     <li><a href="/v4/sys">/v4/sys</a></li>
     <li><a href="/v4/sys/admin">/v4/sys/admin</a></li>
+  </ul>
+  <h4>SecurityConfigV5_CSRF</h4>
+  <ul class="col-12">
+    <li><a href="/v5">/v5</a></li>
   </ul>
 </div>
 </body>
