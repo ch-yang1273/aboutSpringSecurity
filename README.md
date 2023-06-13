@@ -3,7 +3,9 @@
 Spring Security에 대해 전반적인 실습을 진행했습니다.
 
 ## 1. Deprecated된 WebSecurityConfigurerAdapter을 상속
-Config : [SecurityConfigV1_Deprecated.java](src/main/java/study/security/config/SecurityConfigV1_Deprecated.java)
+Config : [SecurityConfigV1_Deprecated.java](study/src/main/java/study/security/config/SecurityConfigV1_Deprecated.java)
+
+study/src/main/java/study/security/config/SecurityConfigV1_Deprecated.java
 
 Spring Security 5.4 버전에서는 보안 설정을 위해 WebSecurityConfigurerAdapter 클래스를 상속받아 사용하며, 
 
@@ -11,7 +13,7 @@ configure(HttpSecurity http) 메서드를 오버라이드하여 원하는 설정
 
 ## 2. 컴포넌트 기반의 보안 설정으로 전환
 
-Config : [SecurityConfigV2.java](src/main/java/study/security/config/SecurityConfigV2.java)
+Config : [SecurityConfigV2.java](study/src/main/java/study/security/config/SecurityConfigV2.java)
 
 Spring Security 5.7 부터는 SecurityFilterChain Bean을 등록하는 방식을 권장합니다.
 - 애플리케이션 실행 시 생성되는 security password와 `user` 아이디를 사용해서 로그인 테스트 가능
@@ -27,7 +29,7 @@ Spring Security 5.7 부터는 SecurityFilterChain Bean을 등록하는 방식을
 
 ## 3. Form Login 인증
 
-Config : [SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/SecurityConfigV3_FormLogin.java)
+Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/config/SecurityConfigV3_FormLogin.java)
 
 - Form Login 방식의 인증을 하도록 설정
 - Spring Security가 제공하는 기본 Login Form 대신 Thymeleaf를 사용하여 재작성
@@ -38,7 +40,7 @@ Config : [SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/S
   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
   implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
   ```
-- [thymeleaf-extras-springsecurity5 사용 예시](src/main/resources/templates/layout/top.html)
+- [thymeleaf-extras-springsecurity5 사용 예시](study/src/main/resources/templates/layout/top.html)
 
 ### 로그인 정책
   
@@ -85,7 +87,7 @@ Config : [SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/S
 
 ## 4. 선언적 방식의 URL 인가(Authorization) 권한 설정
 
-Config : [SecurityConfigV4_Authorization.java](src/main/java/study/security/config/SecurityConfigV4_Authorization.java)
+Config : [SecurityConfigV4_Authorization.java](study/src/main/java/study/security/config/SecurityConfigV4_Authorization.java)
 
 ### URL Authorization 표현식
 
