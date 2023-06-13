@@ -40,9 +40,7 @@ Config : [SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/S
   ```
 - [thymeleaf-extras-springsecurity5 사용 예시](src/main/resources/templates/layout/top.html)
 
-### Memorable
-
-[로그인 정책]
+### 로그인 정책
   
   loginProcessingUrl("/login-proc")
   - login action 처리 경로. 이 경로로 Request하면 ```UsernamePasswordAuthenticationFilter```가 요청을 처리합니다.
@@ -59,7 +57,7 @@ Config : [SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/S
   - 로그인 후에도 ```세션 고정 보호```를 위해 요청할 때마다 id가 변경됩니다. (이 내용은 이후에 정리)
   - 로그인을 하지 않아도 ```JSESSIONID``` 쿠키가 있을 수 있는데, 이건 Anonymous id 입니다.
 
-[로그아웃 정책]
+### 로그아웃 정책
 
   logoutRequestMatcher(new AntPathRequestMatcher("/logout-page", "GET")
   - logout action 처리 경로. 이 경로로 Request하면 ```LogoutFilter```가 요청을 처리합니다.
@@ -70,12 +68,12 @@ Config : [SecurityConfigV3_FormLogin.java](src/main/java/study/security/config/S
   - "JSESSIONID"을 삭제할 필요가 있는지 모르겠지만, 일단 삭제했습니다.
   - Remember-me 기능을 위한 "remember-me" 쿠키도 삭제
 
-[Remember-me]
+### Remember-me
 
   userDetailsService(userDetailsService)
   - 꼭 설정 해야한다는데 용도를 잘 모르겠다. 나중에 정리해야겠다.
 
-[Session Management]
+### Session Management
 
   maximumSessions(1)
   - 최대로 유지할 세션 수 설정
@@ -153,11 +151,11 @@ accessDeniedPage : 인가 실패 시 리디렉션 할 페이지
 
 참고 : [CSRF(Cross-Site Request Forgery) attack](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=aepkoreanet&logNo=221457283624)
 
-### CSRF 토큰을 사용한 방어
+### 토큰을 사용한 CSRF 방어
 
 HTTP 메서드 중 GET을 제외한 POST, PATCH, PUT, DELETE 요청에는 CSRF 토큰을 요구합니다.
 
-RESTful API에서는 JWT 또는 OAuth 등의 방식으로 인증을 처리하므로, 별도의 CSRF을 사용할 필요가 없습니다.
+RESTful API에서는 JWT 또는 OAuth 등의 방식으로 인증을 처리하므로, 별도의 CSRF 방어를 사용할 필요가 없습니다.
 
 ```java
 http.csrf() // (Default) 활성화
