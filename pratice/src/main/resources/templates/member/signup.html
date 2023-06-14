@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: layout(~{::title},~{::section})}">
+<head>
+    <title>Login</title>
+</head>
+<body>
+<section>
+    <div class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+                <h2 class="text-center">Sign Up</h2>
+                <form th:action="@{/signup-proc}" method="post">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" placeholder="아이디" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd" placeholder="비밀번호" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" placeholder="이메일" name="email">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
