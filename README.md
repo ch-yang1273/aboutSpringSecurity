@@ -167,6 +167,9 @@ http.csrf().disabled() // 비활성화
 *```Thymeleaf```는 자동으로 ```<input>``` 태그와 ```_csrf``` 토큰을 생성합니다.
 
 [csrf.html - Thymeleaf]
+
+- ```<form th:action="@{/login-proc}" method="post">``` : action 속성에 Thymeleaf 문법을 사용해야 자동으로 `_csrf` 토큰을 생성합니다.
+
 ```html
 <div class="container">
   <h4>SecurityConfigV5_CSRF</h4>

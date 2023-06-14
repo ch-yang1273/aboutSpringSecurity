@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <title>navbar</title>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg text-light bg-dark">
+  <div class="container">
+    <a class="text-light" href="/h2-console"><h4>Spring Security</h4></a>
+    <ul class="nav justify-content-end">
+      <li class="nav-item" sec:authorize="isAnonymous()">
+        <a class="nav-link text-light" th:href="@{/login-page}">로그인</a>
+      </li>
+      <li class="nav-item" sec:authorize="isAnonymous()">
+        <a class="nav-link text-light" th:href="@{/accounts}">회원가입</a>
+      </li>
+      <li class="nav-item" sec:authorize="isAuthenticated()">
+        <a class="nav-link text-light" th:href="@{/logout}">로그아웃</a>
+      </li>
+      <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
+        <a class="nav-link text-light" th:href="@{/admin}">관리자</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="/">HOME</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</body>
+</html>
