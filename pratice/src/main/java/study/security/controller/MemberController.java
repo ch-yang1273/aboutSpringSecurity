@@ -36,6 +36,6 @@ public class MemberController {
     public String createMember(@ModelAttribute MemberDto dto) {
         log.info("username={}, password={}", dto.getUsername(), dto.getPassword());
         memberService.createMember(dto);
-        return "redirect:/";
+        return "redirect:/login";
     }
 }
