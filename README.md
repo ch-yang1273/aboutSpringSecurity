@@ -180,7 +180,7 @@ http.csrf().disabled() // 비활성화
 
 [csrf.html - Thymeleaf]
 
-- `<form th:action="@{/login-proc}" method="post">` : action 속성에 Thymeleaf 문법을 사용해야 자동으로 `_csrf` 토큰을 생성합니다.
+- `<form th:action="@{/login-proc}" method="post">` : action 속성에 Thymeleaf 문법을 사용해야, 자동으로 `_csrf` 토큰이 생성됩니다.
 
 ```html
 <div class="container">
