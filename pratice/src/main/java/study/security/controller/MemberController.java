@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import study.security.domain.MemberDto;
 import study.security.service.MemberService;
 
@@ -27,14 +26,13 @@ public class MemberController {
         return "member/login";
     }
 
-    @GetMapping("signup")
+    @GetMapping("/signup")
     public String signupForm() {
         return "member/signup";
     }
 
     @PostMapping("/signup-proc")
     public String createMember(@ModelAttribute MemberDto dto) {
-        log.info("username={}, password={}", dto.getUsername(), dto.getPassword());
         memberService.createMember(dto);
         return "redirect:/login";
     }

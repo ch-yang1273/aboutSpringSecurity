@@ -2,12 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/main :: layout(~{::title},~{::section})}">
 <head>
-  <title>메인 페이지</title>
+  <title>Home</title>
 </head>
 <body>
 <section>
-  <p>Index</p>
-  <div>메인 페이지 내용</div>
+  <div class="container row">
+    <nav class="col-md-3 d-none d-md-block bg-light sidebar sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link btn btn-light" href="/mypage">마이페이지</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-light" href="/manager">관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-light" href="/admin">환경설정</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </section>
 </body>
 </html>
