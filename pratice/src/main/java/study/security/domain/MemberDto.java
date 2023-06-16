@@ -11,7 +11,6 @@ public class MemberDto {
     private String username;
     private String password;
     private String email;
-    private String age;
     private String role;
 
     public Member toEntityWithEncoder(PasswordEncoder encoder) {
@@ -20,7 +19,6 @@ public class MemberDto {
                 .username(username)
                 .password(encodedPassword)
                 .email(email)
-                .age(age)
                 .role(role)
                 .build();
     }

@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfigV3_FormLogin {
 
     private final UserDetailsService userDetailsService;
