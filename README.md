@@ -5,41 +5,51 @@ Spring Security에 대해 전반적인 실습을 진행했습니다.
 ## 1. Deprecated된 WebSecurityConfigurerAdapter을 상속
 Config : [SecurityConfigV1_Deprecated.java](study/src/main/java/study/security/config/SecurityConfigV1_Deprecated.java)
 
-study/src/main/java/study/security/config/SecurityConfigV1_Deprecated.java
+> Spring Security 5.0 부터 Deprecated 된 `WebSecurityConfigurerAdapter`를 사용하여 보안 설정을 진행했습니다.
 
-Spring Security 5.4 버전에서는 보안 설정을 위해 WebSecurityConfigurerAdapter 클래스를 상속받아 사용하며, 
+Spring Security 5.0 이전 버전에서는 보안 설정을 위해 WebSecurityConfigurerAdapter 클래스를 상속받아 사용하며, 
 
 configure(HttpSecurity http) 메서드를 오버라이드하여 원하는 설정을 진행하고 빈으로 등록합니다.
 
 ## 2. 컴포넌트 기반의 보안 설정으로 전환
 
-Config : [SecurityConfigV2.java](study/src/main/java/study/security/config/SecurityConfigV2.java)
+Config : [SecurityConfigV2.java](study/src/main/java/study/security/config/SecurityConfigV2_Without_WebSecurityConfigurerAdapter.java)
 
-Spring Security 5.7 부터는 SecurityFilterChain Bean을 등록하는 방식을 권장합니다.
-- 애플리케이션 실행 시 생성되는 security password와 `user` 아이디를 사용해서 로그인 테스트 가능
+> 권장 방식에 따라 `WebSecurityConfigurerAdapter`을 상속하지 않는 방식으로 보안 설정을 진행 했습니다.
 
-### 설정 기본 개념
+- `SecurityFilterChain`을 빈으로 등록하여 `HttpSecurity`를 설정
+- `AuthenticationManagerBuilder`를 사용하여 Custom 한 인증 설정 추가 (`AuthenticationProvider`, `UserDetailsService`)
+
+### 참고
+- 공식 블로그 : [Spring Security without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
+- baeldung 블로그 : [Spring Security: Upgrading the Deprecated WebSecurityConfigurerAdapter](https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter)
+
+## 3. Form Login 인증
+
+Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/config/SecurityConfigV3_FormLogin.java)
+
+> 전반적인 Form Login 관련 보안 설정을 진행하고, `Thymeleaf`를 사용한 로그인 예시를 작성했습니다.
+
+### 기본적인 설정 방법
 보안 정책을 설정하려면, 먼저 관련 Configurer를 반환하는 메서드드를 호출해야 합니다.
 - 예) formLogin(), logout(), rememberMe(), sessionManagement() 등
 
 이러한 메서드들을 호출한 후 각 보안 기능에 대한 세부 설정을 할 수 있습니다.
 
-해당 범위의 보안 설정이 끝나면 ```;```로 마무리하거나 ```and()``` 메서드를 호출 할 수 있습니다.
-```and()``` 메서드를 호출하면 HttpSecurity 객체가 다시 반환되어, 해당 범위의 설정을 끝내고 새로운 보안 설정을 시작할 수 있습니다.
-
-## 3. Form Login 인증
-
-Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/config/SecurityConfigV3_FormLogin.java)
+해당 범위의 보안 설정이 끝나면 `;`로 마무리하거나 `and()` 메서드를 호출 할 수 있습니다.
+`and()` 메서드를 호출하면 HttpSecurity 객체가 다시 반환되어, 해당 범위의 설정을 끝내고 새로운 보안 설정을 시작할 수 있습니다.
 
 - Form Login 방식의 인증을 하도록 설정
 - Spring Security가 제공하는 기본 Login Form 대신 Thymeleaf를 사용하여 재작성
 
 ### Thymeleaf
 - Spring Security 관련한 Thymeleaf 의존성을 추가 (현재 최신 버전은 springsecurity6)
+
   ```build.gradle
   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
   implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
   ```
+
 - [thymeleaf-extras-springsecurity5 사용 예시](study/src/main/resources/templates/layout/top.html)
 
 ### 로그인 정책
@@ -72,8 +82,14 @@ Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/co
 
 ### Remember-me
 
+```java
+.rememberMe()
+.rememberMeParameter("remember-me")
+.tokenValiditySeconds(3600)
+.userDetailsService(userDetailsService)
+```
+
   userDetailsService(userDetailsService)
-  - 꼭 설정 해야한다는데 용도를 잘 모르겠다. 나중에 정리해야겠다.
 
 ### Session Management
 
@@ -88,6 +104,8 @@ Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/co
 ## 4. 선언적 방식의 URL 인가(Authorization) 권한 설정
 
 Config : [SecurityConfigV4_Authorization.java](study/src/main/java/study/security/config/SecurityConfigV4_Authorization.java)
+
+> 선언적 방식의 URL에 대한 인가 정책을 알아봤습니다.
 
 ### URL Authorization 표현식
 
@@ -137,15 +155,9 @@ Spring Security 공식 API 문서 (v5.7.8) : [ExpressionUrlAuthorizationConfigur
 
 [인증/인가 처리]
 
-authenticationEntryPoint : 인증 실패 시 처리
-- Redirection은 굳이 이 핸들러를 설정하지 않아도 됩니다.
-- 특별히 처리 할 내용 없으면 설정 X
-
-accessDeniedHandler : 인가 실패 시 처리
-- 인가 실패는 처리하지 않으면 403 에러가 반환됩니다.
-
-accessDeniedPage : 인가 실패 시 리디렉션 할 페이지
-- 특별히 처리할 내용 없으면 accessDeniedHandler 말고 이 메서드 사용
+- authenticationEntryPoint : 인증 실패 시 처리 (로그인 자체를 안했을 때)
+- accessDeniedHandler : 인가 실패 시 처리 (로그인은 했으나 권한이 부족할 때)
+- accessDeniedPage : 인가 실패 시 리디렉션 할 페이지
 
 ## CSRF, CSRF 필터
 
@@ -157,7 +169,7 @@ accessDeniedPage : 인가 실패 시 리디렉션 할 페이지
 
 HTTP 메서드 중 GET을 제외한 POST, PATCH, PUT, DELETE 요청에는 CSRF 토큰을 요구합니다.
 
-RESTful API에서는 JWT 또는 OAuth 등의 방식으로 인증을 처리하므로, 별도의 CSRF 방어를 사용할 필요가 없습니다.
+RESTful API에서 JWT 또는 OAuth 등의 방식으로 인증을 처리한다면, 별도의 CSRF 방어는 사용할 필요가 없습니다.
 
 ```java
 http.csrf() // (Default) 활성화

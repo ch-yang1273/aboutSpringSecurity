@@ -18,6 +18,7 @@ public class AjaxSecurityConfig {
 
     private final AjaxAuthenticationProvider ajaxAuthenticationProvider;
 
+    // `HttpSecurity`에는 공유 객체를 저장하는 저장소가 있다.
     @Bean
     public AuthenticationManager ajaxAuthenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
