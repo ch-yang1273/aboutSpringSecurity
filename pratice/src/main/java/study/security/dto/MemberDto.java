@@ -1,8 +1,9 @@
-package study.security.domain;
+package study.security.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import study.security.domain.Member;
 
 @Getter
 @Setter

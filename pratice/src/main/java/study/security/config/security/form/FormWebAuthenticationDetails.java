@@ -1,4 +1,4 @@
-package study.security.config.security;
+package study.security.config.security.form;
 
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 

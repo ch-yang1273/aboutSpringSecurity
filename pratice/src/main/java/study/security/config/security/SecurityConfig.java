@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,12 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import study.security.config.security.form.CustomAuthenticationProvider;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RequiredArgsConstructor
 @EnableWebSecurity
+@Order(1)
 public class SecurityConfig {
 
     private final CustomAuthenticationProvider customAuthenticationProvider;
@@ -31,21 +34,21 @@ public class SecurityConfig {
 
     // ref. https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter
     @Bean
-    public AuthenticationManager registerUserDetailsService(HttpSecurity http) throws Exception {
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .authenticationProvider(customAuthenticationProvider)
                 .build();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain formFilterChain(HttpSecurity http) throws Exception {
         http
                 // Temp : /h2-console 사용
                 .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .headers().frameOptions().sameOrigin()
                 .and()
-                //
+                // AuthorizeRequests
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/signup", "/signup-proc").permitAll()

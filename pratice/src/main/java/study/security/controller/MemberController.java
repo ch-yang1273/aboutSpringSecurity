@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import study.security.domain.MemberDto;
+import study.security.dto.MemberDto;
 import study.security.service.MemberService;
 
 @Slf4j

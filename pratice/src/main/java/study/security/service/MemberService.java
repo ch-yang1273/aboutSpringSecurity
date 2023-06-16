@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.security.domain.MemberDto;
+import study.security.dto.MemberDto;
 import study.security.domain.MemberRepository;
 
 @Slf4j
