@@ -55,7 +55,7 @@ Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/co
 ### 로그인 정책
   
   loginProcessingUrl("/login-proc")
-  - login action 처리 경로. 이 경로로 Request하면 ```UsernamePasswordAuthenticationFilter```가 요청을 처리합니다.
+  - login action 처리 경로. 이 경로로 Request하면 `UsernamePasswordAuthenticationFilter`가 요청을 처리합니다.
   - "/login-proc"에 매핑된 컨트롤러는 따로 만들지 않습니다.
 
   usernameParameter("username")
@@ -64,15 +64,15 @@ Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/co
   passwordParameter("password")
   - form에서 사용할 password 쿼리 파라미터의 이름을 설정 (input 태그의 name)
 
-  ```JSESSIONID``` 쿠키
+  `JSESSIONID` 쿠키
   - 로그인 상태를 유지하기 위한 세션 id
-  - 로그인 후에도 ```세션 고정 보호```를 위해 요청할 때마다 id가 변경됩니다. (이 내용은 이후에 정리)
-  - 로그인을 하지 않아도 ```JSESSIONID``` 쿠키가 있을 수 있는데, 이건 Anonymous id 입니다.
+  - 로그인 후에도 `세션 고정 보호`를 위해 요청할 때마다 id가 변경됩니다. (이 내용은 이후에 정리)
+  - 로그인을 하지 않아도 `JSESSIONID` 쿠키가 있을 수 있는데, 이건 Anonymous id 입니다.
 
 ### 로그아웃 정책
 
   logoutRequestMatcher(new AntPathRequestMatcher("/logout-page", "GET")
-  - logout action 처리 경로. 이 경로로 Request하면 ```LogoutFilter```가 요청을 처리합니다.
+  - logout action 처리 경로. 이 경로로 Request하면 `LogoutFilter`가 요청을 처리합니다.
   - "/logout-page"에 매핑된 컨트롤러는 따로 만들지 않습니다.
 
   deleteCookies("JSESSIONID", "remember-me")
@@ -105,7 +105,7 @@ Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/co
 
 Config : [SecurityConfigV4_Authorization.java](study/src/main/java/study/security/config/SecurityConfigV4_Authorization.java)
 
-> 선언적 방식의 URL에 대한 인가 정책을 알아봤습니다.
+> 선언적 방식의 URL 인가 설정 방법을 알아봤습니다.
 
 ### URL Authorization 표현식
 
@@ -176,11 +176,11 @@ http.csrf() // (Default) 활성화
 http.csrf().disabled() // 비활성화
 ```
 
-*```Thymeleaf```는 자동으로 ```<input>``` 태그와 ```_csrf``` 토큰을 생성합니다.
+*`Thymeleaf`는 자동으로 `<input>` 태그와 `_csrf` 토큰을 생성합니다.
 
 [csrf.html - Thymeleaf]
 
-- ```<form th:action="@{/login-proc}" method="post">``` : action 속성에 Thymeleaf 문법을 사용해야 자동으로 `_csrf` 토큰을 생성합니다.
+- `<form th:action="@{/login-proc}" method="post">` : action 속성에 Thymeleaf 문법을 사용해야 자동으로 `_csrf` 토큰을 생성합니다.
 
 ```html
 <div class="container">
@@ -199,7 +199,7 @@ http.csrf().disabled() // 비활성화
 ```
 
 [생성 된 HTML의 Form]
-- ```Thymeleaf```에서 작성하지 않은 태그```<input type="hidden" name="_csrf" value="token">```가 삽입되어 있습니다.
+- `Thymeleaf`에서 작성하지 않은 태그`<input type="hidden" name="_csrf" value="token">`가 삽입되어 있습니다.
 ```html
 <div class="container">
   <h4>SecurityConfigV5_CSRF</h4>
