@@ -52,9 +52,9 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/signup", "/signup-proc").permitAll()
-                .antMatchers("/mypage").hasRole("USER")
-                .antMatchers("/manages").hasRole("MANAGER")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/mypage/**").hasRole("USER")
+                .antMatchers("/manage/**").hasRole("MANAGER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 // 로그인
