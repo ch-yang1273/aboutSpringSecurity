@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
 
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(member.getRole()));
+        roles.add(new SimpleGrantedAuthority(member.getRole().toString()));
 
         log.info("loadUserByUsername={}", username);
         return new MemberContext(member, roles);

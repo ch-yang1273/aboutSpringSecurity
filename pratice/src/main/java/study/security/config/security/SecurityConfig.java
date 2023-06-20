@@ -51,7 +51,7 @@ public class SecurityConfig {
                 // AuthorizeRequests
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/signup", "/signup-proc").permitAll()
+                .antMatchers("/signup", "/signup-proc", "/h2-console/**").permitAll()
                 .antMatchers("/mypage/**").hasRole("USER")
                 .antMatchers("/manage/**").hasRole("MANAGER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
