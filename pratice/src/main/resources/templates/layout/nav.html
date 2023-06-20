@@ -6,8 +6,8 @@
   <title>navbar</title>
 </head>
 <body>
-<nav th:fragment="navbar" class="navbar navbar-expand-lg text-light bg-dark">
-  <div class="container">
+<nav th:fragment="navbar" class="container my-3">
+  <div class="navbar text-light bg-dark">
     <a class="text-light" href="/h2-console"><h4>Spring Security</h4></a>
     <ul class="nav justify-content-end">
       <li class="nav-item" sec:authorize="isAnonymous()">

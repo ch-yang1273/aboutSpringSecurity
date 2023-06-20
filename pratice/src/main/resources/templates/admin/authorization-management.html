@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <title>User Management Table</title>
+</head>
+<body>
+<section>
+  <div class="management">
+    <table class="table my-3">
+      <thead>
+      <tr>
+        <th scope="col">권한명</th>
+        <th scope="col">설명</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="" th:each="role : ${roles}">
+        <td th:text="${role.getRoleName()}">권한명</td>
+        <td th:text="${role.getDescription()}">설명</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>

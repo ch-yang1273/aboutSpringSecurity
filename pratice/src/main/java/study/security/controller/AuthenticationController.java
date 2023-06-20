@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import study.security.dto.MemberDto;
+import study.security.dto.SignupDto;
 import study.security.service.MemberService;
 
 @Slf4j
@@ -27,7 +27,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup-proc")
-    public String createMember(@ModelAttribute MemberDto dto) {
+    public String createMember(@ModelAttribute SignupDto dto) {
         memberService.createMember(dto);
         return "redirect:/login";
     }

@@ -7,9 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
-import study.security.dto.MemberDto;
+import study.security.dto.SignupDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +37,7 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
             throw new IllegalStateException("Authentication is not supported");
         }
 
-        MemberDto dto = mapper.readValue(request.getReader(), MemberDto.class);
+        SignupDto dto = mapper.readValue(request.getReader(), SignupDto.class);
         if (StringUtils.isEmpty(dto.getUsername()) || StringUtils.isEmpty(dto.getPassword())) {
             log.error("Username or Password is empty");
             throw new IllegalArgumentException("Username or Password is empty");

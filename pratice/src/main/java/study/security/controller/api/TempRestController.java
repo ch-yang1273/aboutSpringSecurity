@@ -1,4 +1,4 @@
-package study.security.controller;
+package study.security.controller.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,13 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/main :: layout(~{::title},~{::section})}">
 <head>
-    <title>Admin Home</title>
+  <title>Admin Home</title>
 </head>
 <body>
 <section>
-    <div class="container row">
-        <h2>Admin Home</h2>
-    </div>
+  <div class="container">
+    <!-- 선택 : btn-primary, 그 외 : btn-secondary -->
+    <button type="button" class="btn btn-secondary" id="user-management-btn">사용자 관리</button>
+    <button type="button" class="btn btn-secondary" id="permission-management-btn">권한 관리</button>
+    <button type="button" class="btn btn-secondary" id="resource-management-btn">리소스 관리</button>
+  </div>
+  <div id="admin-table" class="container">
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script th:src="@{js/admin.js}" src="/static/js/admin.js"></script>
 </section>
 </body>
 </html>

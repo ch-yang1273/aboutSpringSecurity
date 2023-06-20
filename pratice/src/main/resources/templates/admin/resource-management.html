@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <title>User Management Table</title>
+</head>
+<body>
+<section>
+  <div class="management">
+    <table class="table my-3">
+      <thead>
+      <tr>
+        <th scope="col">순서</th>
+        <th scope="col">리소스타입</th>
+        <th scope="col">리소스명</th>
+        <th scope="col">HttpMethod</th>
+        <th scope="col">권한</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="" th:each="resource : ${resources}">
+        <td th:text="${resource.getOrderNum()}">순서</td>
+        <td th:text="${resource.getResourceType()}">리소스타입</td>
+        <td th:text="${resource.getResourceName()}">리소스명</td>
+        <td th:text="${resource.getHttpMethod()}">HttpMethod</td>
+        <td th:text="${resource.getMemberRole()}">권한</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>

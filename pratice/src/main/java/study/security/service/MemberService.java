@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.security.domain.Member;
 import study.security.domain.MemberRole;
 import study.security.domain.MemberRoleRepository;
-import study.security.dto.MemberDto;
+import study.security.dto.SignupDto;
 import study.security.domain.MemberRepository;
 
 @Slf4j
@@ -22,7 +22,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void createMember(MemberDto dto) {
+    public void createMember(SignupDto dto) {
         MemberRole memberRole = memberRoleRepository.findByRoleName(dto.getRole()).orElseThrow();
 
         Member member = Member.builder()
