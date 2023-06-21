@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <title>User Management Table</title>
+</head>
+<body>
+<section>
+  <div class="registration">
+    <form id="role-form" class="my-3">
+      <div class="form-group">
+        <label for="role-name"><b>권한 이름 : </b></label>
+        <input type="text" value="ROLE_" id="role-name" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="role-description"><b>권한 설명 : </b></label>
+        <textarea id="role-description" class="form-control"></textarea>
+      </div>
+    </form>
+    <button type="button" class="btn btn-info" id="add-role-btn">등록</button>
+  </div>
+</section>
+</body>
+</html>

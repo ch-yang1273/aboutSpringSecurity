@@ -2,7 +2,6 @@ package study.security.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,16 +32,21 @@ public class AdminController {
         model.addAttribute("members", members);
 
         log.info("Members size={}", members.size());
-        return "admin/user-management";
+        return "admin/user-table";
     }
 
-    @GetMapping("/authorization")
+    @GetMapping("/role")
     public String getAuthorizationManagementTable(Model model) {
         List<RoleResponse> roles = adminService.getRoles();
         model.addAttribute("roles", roles);
 
         log.info("Roles size={}", roles.size());
-        return "admin/authorization-management";
+        return "/admin/role-table";
+    }
+
+    @GetMapping("/role/add")
+    public String getAuthorizationRegistrationForm() {
+        return "admin/add-role";
     }
 
     @GetMapping("/resource")
@@ -51,6 +55,6 @@ public class AdminController {
         model.addAttribute("resources", resources);
 
         log.info("Resources size={}", resources.size());
-        return "admin/resource-management";
+        return "admin/resource-table";
     }
 }

@@ -43,17 +43,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain formFilterChain(HttpSecurity http) throws Exception {
         http
-                // Temp : /h2-console 사용
-                .csrf().ignoringAntMatchers("/h2-console/**")
-                .and()
-                .headers().frameOptions().sameOrigin()
-                .and()
                 // AuthorizeRequests
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/signup", "/signup-proc", "/h2-console/**").permitAll()
-                .antMatchers("/mypage/**").hasRole("USER")
-                .antMatchers("/manage/**").hasRole("MANAGER")
+                .antMatchers("/", "/signup", "/signup-proc").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

@@ -9,9 +9,7 @@ import study.security.service.MemberService;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class MemberController {
-
-    private final MemberService memberService;
+public class PageController {
 
     @GetMapping("/")
     public String home() {
@@ -21,5 +19,10 @@ public class MemberController {
     @GetMapping("/mypage")
     public String myPage() {
         return "/member/myPage";
+    }
+
+    @GetMapping("/manage")
+    public String manageHome() {
+        return "manage/manage-home";
     }
 }

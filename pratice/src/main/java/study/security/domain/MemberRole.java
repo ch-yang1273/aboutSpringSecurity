@@ -22,9 +22,15 @@ public class MemberRole {
     @Column(name = "rele_desc")
     private String description;
 
-    public MemberRole(Long id, String roleName) {
+    public MemberRole(String roleName, String description) {
+        this.roleName = roleName;
+        this.description = description;
+    }
+
+    public MemberRole(Long id, String roleName, String description) {
         this.id = id;
         this.roleName = roleName;
+        this.description = description;
     }
 
     @Override

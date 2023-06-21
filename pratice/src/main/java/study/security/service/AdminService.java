@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.security.domain.AuthorizationResourceRepository;
 import study.security.domain.MemberRepository;
+import study.security.domain.MemberRole;
 import study.security.domain.MemberRoleRepository;
 import study.security.dto.MemberResponse;
 import study.security.dto.ResourceResponse;
@@ -43,5 +44,13 @@ public class AdminService {
         return authorizationResourceRepository.findAll().stream()
                 .map(ResourceResponse::of)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void addRole(String roleName, String description) {
+        if (roleName == null) {
+            throw new IllegalArgumentException();
+        }
+        memberRoleRepository.save(new MemberRole(roleName, description));
     }
 }
