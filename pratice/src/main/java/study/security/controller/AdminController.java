@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import study.security.dto.MemberResponse;
 import study.security.dto.ResourceResponse;
 import study.security.dto.RoleResponse;
-import study.security.service.AdminService;
+import study.security.service.AuthorizationResourceService;
+import study.security.service.MemberRoleService;
+import study.security.service.MemberService;
 
 import java.util.List;
 
@@ -19,7 +21,9 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-    private final AdminService adminService;
+    private final MemberService memberService;
+    private final MemberRoleService memberRoleService;
+    private final AuthorizationResourceService authorizationResourceService;
 
     @GetMapping
     public String adminHome() {
@@ -27,8 +31,8 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public String getUserManagementTable(Model model) {
-        List<MemberResponse> members = adminService.getMembers();
+    public String getUserTable(Model model) {
+        List<MemberResponse> members = memberService.getMembers();
         model.addAttribute("members", members);
 
         log.info("Members size={}", members.size());
@@ -36,8 +40,8 @@ public class AdminController {
     }
 
     @GetMapping("/role")
-    public String getAuthorizationManagementTable(Model model) {
-        List<RoleResponse> roles = adminService.getRoles();
+    public String getRoleTable(Model model) {
+        List<RoleResponse> roles = memberRoleService.getRoles();
         model.addAttribute("roles", roles);
 
         log.info("Roles size={}", roles.size());
@@ -50,8 +54,8 @@ public class AdminController {
     }
 
     @GetMapping("/resource")
-    public String getResource(Model model) {
-        List<ResourceResponse> resources = adminService.getResource();
+    public String getResourceTable(Model model) {
+        List<ResourceResponse> resources = authorizationResourceService.getResource();
         model.addAttribute("resources", resources);
 
         log.info("Resources size={}", resources.size());

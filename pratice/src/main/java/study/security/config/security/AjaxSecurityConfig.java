@@ -108,7 +108,7 @@ public class AjaxSecurityConfig {
         http
                 // "/api/**" 경로에만 적용
                 .antMatcher("/api/**")
-                // api 경로는 csrf 방어 disable
+                // csrf 방어 disable
                 .csrf().disable()
                 // AuthorizeRequests
                 .authorizeRequests()

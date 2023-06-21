@@ -3,11 +3,16 @@ package study.security.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import study.security.dto.RoleResponse;
 import study.security.dto.SignupDto;
+import study.security.service.MemberRoleService;
 import study.security.service.MemberService;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -15,6 +20,7 @@ import study.security.service.MemberService;
 public class AuthenticationController {
 
     private final MemberService memberService;
+    private final MemberRoleService memberRoleService;
 
     @GetMapping("/login")
     public String loginForm() {
@@ -22,7 +28,9 @@ public class AuthenticationController {
     }
 
     @GetMapping("/signup")
-    public String signupForm() {
+    public String signupForm(Model model) {
+        List<RoleResponse> roles = memberRoleService.getRoles();
+        model.addAttribute("roles", roles);
         return "authentication/signup";
     }
 

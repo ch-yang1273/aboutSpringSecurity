@@ -27,11 +27,13 @@ public class SecurityConfig {
     private final CustomAuthenticationProvider customAuthenticationProvider;
     private final AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
 
+    // 정적 파일에 대한 검사 Skip
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
+    // Custom 한 로그인 처리를 위해 AuthenticationProvider 등록
     // ref. https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {

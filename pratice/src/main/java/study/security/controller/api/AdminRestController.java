@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import study.security.dto.AddRoleRequest;
-import study.security.service.AdminService;
+import study.security.service.MemberRoleService;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
 @RestController
 public class AdminRestController {
 
-    private final AdminService adminService;
+    private final MemberRoleService memberRoleService;
 
     @PostMapping("/authorization/add")
     public void addAuthorization(@RequestBody AddRoleRequest request) {
-        adminService.addRole(request.getRoleName(), request.getDescription());
+        memberRoleService.addRole(request.getRoleName(), request.getDescription());
     }
 }
