@@ -16,16 +16,20 @@ $(function() {
             // 클릭된 버튼에 따라 적절한 테이블을 로드한다.
             switch(buttonId) {
                 case '#user-management-btn':
-                    $("#admin-table").load("/admin/users .management");
+                    $("#admin-table").load("/admin/users .management", function (){
+                        // <script> 태그는 넣어두어도 빼고 가져오더라
+                        $.getScript("/js/registration.js")
+                    });
                     break;
                 case '#authorization-management-btn':
                     $("#admin-table").load("/admin/role .management", function (){
-                        // <script> 태그는 빼고 가져오더라
                         $.getScript("/js/registration.js")
                     });
                     break;
                 case '#resource-management-btn':
-                    $("#admin-table").load("/admin/resource .management");
+                    $("#admin-table").load("/admin/resource .management", function (){
+                        $.getScript("/js/registration.js")
+                    });
                     break;
             }
         });

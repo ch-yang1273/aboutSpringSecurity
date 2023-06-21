@@ -49,7 +49,7 @@ public class AdminController {
     }
 
     @GetMapping("/role/add")
-    public String getAuthorizationRegistrationForm() {
+    public String getRoleRegistrationForm() {
         return "admin/add-role";
     }
 
@@ -60,5 +60,13 @@ public class AdminController {
 
         log.info("Resources size={}", resources.size());
         return "admin/resource-table";
+    }
+
+    @GetMapping("/resource/add")
+    public String getResourceRegistrationForm(Model model) {
+        List<RoleResponse> roles = memberRoleService.getRoles();
+        model.addAttribute("roles", roles);
+
+        return "admin/add-resource";
     }
 }

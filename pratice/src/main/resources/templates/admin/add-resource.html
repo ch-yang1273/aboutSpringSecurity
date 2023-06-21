@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <title>Add Form</title>
+</head>
+<body>
+<section>
+  <div class="registration">
+    <form id="role-form" class="my-3">
+      <div class="form-group">
+        <label for="orderNum"><b>순서</b></label>
+        <input type="number" class="form-control" id="orderNum" name="orderNum">
+      </div>
+      <div class="form-group">
+        <label for="resourceType"><b>리소스타입</b></label>
+        <select class="form-control" id="resourceType" name="resourceType">
+          <option th:value="url" th:text="url" selected>리소스타입</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="resourceName"><b>리소스명</b></label>
+        <input type="text" class="form-control" id="resourceName" name="resourceName">
+      </div>
+      <div class="form-group">
+        <label for="httpMethod"><b>HttpMethod</b></label>
+        <select class="form-control" id="httpMethod" name="httpMethod">
+          <option th:value="Get" th:text="Get" selected>HttpMethod</option>
+          <option th:value="Post" th:text="Post">HttpMethod</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="memberRole"><b>권한</b></label>
+        <select class="form-control" id="memberRole" name="memberRole">
+          <option th:each="role : ${roles}"
+                  th:value="${role.getRoleName()}"
+                  th:text="${role.getRoleName().split('_')[1]}">Role
+          </option>
+        </select>
+      </div>
+    </form>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-info" id="add-resource-btn">등록</button>
+    </div>
+  </div>
+</section>
+</body>
+</html>

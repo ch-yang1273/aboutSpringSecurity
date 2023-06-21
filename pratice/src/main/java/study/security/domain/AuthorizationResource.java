@@ -1,5 +1,6 @@
 package study.security.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,4 +32,15 @@ public class AuthorizationResource {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private MemberRole memberRole;
+
+    @Builder
+    public AuthorizationResource(Long id, String resourceName, String httpMethod, int orderNum,
+                                 String resourceType, MemberRole memberRole) {
+        this.id = id;
+        this.resourceName = resourceName;
+        this.httpMethod = httpMethod;
+        this.orderNum = orderNum;
+        this.resourceType = resourceType;
+        this.memberRole = memberRole;
+    }
 }
