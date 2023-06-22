@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.security.config.security.authorization.UrlFilterInvocationSecurityMetadataSource;
 import study.security.domain.AuthorizationResource;
 import study.security.domain.AuthorizationResourceRepository;
 import study.security.domain.MemberRole;
@@ -21,6 +22,8 @@ public class AuthorizationResourceService {
 
     private final AuthorizationResourceRepository authorizationResourceRepository;
     private final MemberRoleRepository memberRoleRepository;
+
+    private final UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource;
 
     @Transactional(readOnly = true)
     public List<ResourceResponse> getResource() {
@@ -42,5 +45,7 @@ public class AuthorizationResourceService {
                 .build();
 
         authorizationResourceRepository.save(entity);
+
+        urlFilterInvocationSecurityMetadataSource.reload();
     }
 }

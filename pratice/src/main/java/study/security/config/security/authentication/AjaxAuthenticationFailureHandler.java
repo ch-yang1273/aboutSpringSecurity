@@ -1,4 +1,4 @@
-package study.security.config.security.ajax;
+package study.security.config.security.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;

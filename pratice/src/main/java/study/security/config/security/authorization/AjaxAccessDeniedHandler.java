@@ -1,4 +1,4 @@
-package study.security.config.security.ajax;
+package study.security.config.security.authorization;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;

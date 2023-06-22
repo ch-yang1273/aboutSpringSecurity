@@ -1,4 +1,4 @@
-package study.security.config.security;
+package study.security.config.security.authorization;
 
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;

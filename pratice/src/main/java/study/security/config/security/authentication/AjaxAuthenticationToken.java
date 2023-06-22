@@ -1,4 +1,4 @@
-package study.security.config.security.ajax;
+package study.security.config.security.authentication;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

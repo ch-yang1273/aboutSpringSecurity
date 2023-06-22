@@ -1,4 +1,4 @@
-package study.security.config.security.ajax;
+package study.security.config.security.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.thymeleaf.util.StringUtils;
+import study.security.config.security.authentication.AjaxAuthenticationToken;
 import study.security.dto.SignupDto;
 
 import javax.servlet.ServletException;

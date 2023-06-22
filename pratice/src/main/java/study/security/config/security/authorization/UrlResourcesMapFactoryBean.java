@@ -1,4 +1,4 @@
-package study.security.config.security;
+package study.security.config.security.authorization;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.security.access.ConfigAttribute;
@@ -8,7 +8,7 @@ import study.security.service.SecurityResourceService;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-// 이 클래스가 왜 있어야 하는지 잘 모르겠는데...
+// 이 클래스가 왜 있어야 하는지 잘 모르겠어서 사용 안했다. 참고용으로 코드는 놔둠
 public class UrlResourcesMapFactoryBean implements FactoryBean<LinkedHashMap<RequestMatcher, List<ConfigAttribute>>> {
 
     private SecurityResourceService securityResourceService;

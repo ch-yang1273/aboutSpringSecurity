@@ -1,4 +1,4 @@
-package study.security.config.security.ajax;
+package study.security.config.security.authentication;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
