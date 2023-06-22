@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
-@Order(0)
+//@Order(0)
 public class SecurityConfig {
 
     private final AuthenticationBeans authenticationBeans;
@@ -38,7 +38,7 @@ public class SecurityConfig {
         return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
-    // Custom 한 로그인 처리를 위해 AuthenticationProvider 등록
+    // Custom 한 로그인 처리를 위해 AuthenticationProvider 등록 (form login)
     // ref. https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {

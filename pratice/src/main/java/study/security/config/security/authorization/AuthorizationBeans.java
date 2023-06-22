@@ -18,6 +18,8 @@ import java.util.List;
 @Configuration
 public class AuthorizationBeans {
 
+    String[] permitAllResources = {"/", "/login", "/login-proc", "/signup"};
+
     private final SecurityResourceService securityResourceService;
     private final AuthenticationBeans authenticationBeans;
 
@@ -40,9 +42,11 @@ public class AuthorizationBeans {
     }
 
     @Bean
-    public FilterSecurityInterceptor filterSecurityInterceptor(HttpSecurity http) throws Exception {
+    public PermitAllFilter filterSecurityInterceptor(HttpSecurity http) throws Exception {
 
-        FilterSecurityInterceptor fsi = new FilterSecurityInterceptor();
+        // PermitAll 기능을 추가한 fsi 로 변경
+        PermitAllFilter fsi = new PermitAllFilter(permitAllResources);
+//        FilterSecurityInterceptor fsi = new FilterSecurityInterceptor();
         fsi.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
         fsi.setAccessDecisionManager(affirmativeBased());
 
