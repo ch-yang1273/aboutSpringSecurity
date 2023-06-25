@@ -8,7 +8,6 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import study.security.config.security.authentication.AuthenticationBeans;
 import study.security.service.SecurityResourceService;
 
@@ -37,7 +36,7 @@ public class AuthorizationBeans {
     }
 
     @Bean
-    public UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() throws Exception {
+    public UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() {
         return new UrlFilterInvocationSecurityMetadataSource(securityResourceService);
     }
 

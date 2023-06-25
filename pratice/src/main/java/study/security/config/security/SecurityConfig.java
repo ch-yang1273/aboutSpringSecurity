@@ -74,6 +74,7 @@ public class SecurityConfig {
 
                 // Ajax 인가 에러 처리
                 .exceptionHandling()
+                .accessDeniedPage("/forbidden")
 //                .authenticationEntryPoint(authenticationBeans.authenticationEntryPoint())
 //                .accessDeniedHandler(authorizationBeans.accessDeniedHandler()) // 빈을 만들어 넣어도 된다.
                 .and()
