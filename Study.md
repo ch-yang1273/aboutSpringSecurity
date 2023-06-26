@@ -2,6 +2,8 @@
 
 Spring Security 관련해서 학습한 내용을 정리합니다.
 
+---
+
 ## 1. Deprecated된 WebSecurityConfigurerAdapter을 상속
 Config : [SecurityConfigV1_Deprecated.java](study/src/main/java/study/security/config/SecurityConfigV1_Deprecated.java)
 
@@ -10,6 +12,8 @@ Config : [SecurityConfigV1_Deprecated.java](study/src/main/java/study/security/c
 Spring Security 5.0 이전 버전에서는 보안 설정을 위해 WebSecurityConfigurerAdapter 클래스를 상속받아 사용하며, 
 
 configure(HttpSecurity http) 메서드를 오버라이드하여 원하는 설정을 진행하고 빈으로 등록합니다.
+
+---
 
 ## 2. 컴포넌트 기반의 보안 설정으로 전환
 
@@ -23,6 +27,8 @@ Config : [SecurityConfigV2.java](study/src/main/java/study/security/config/Secur
 ### 참고
 - 공식 블로그 : [Spring Security without the WebSecurityConfigurerAdapter](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
 - baeldung 블로그 : [Spring Security: Upgrading the Deprecated WebSecurityConfigurerAdapter](https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter)
+
+---
 
 ## 3. Form Login 인증
 
@@ -101,6 +107,8 @@ Config : [SecurityConfigV3_FormLogin.java](study/src/main/java/study/security/co
   - true : 새로운 로그인 요청을 차단
   - false : 기존 세션을 만료
 
+---
+
 ## 4. 선언적 방식의 URL 인가(Authorization) 권한 설정
 
 Config : [SecurityConfigV4_Authorization.java](study/src/main/java/study/security/config/SecurityConfigV4_Authorization.java)
@@ -159,6 +167,8 @@ Spring Security 공식 API 문서 (v5.7.8) : [ExpressionUrlAuthorizationConfigur
 - accessDeniedHandler : 인가 실패 시 처리 (로그인은 했으나 권한이 부족할 때)
 - accessDeniedPage : 인가 실패 시 리디렉션 할 페이지
 
+---
+
 ## CSRF와 CSRF 필터
 
 ### CSRF
@@ -215,6 +225,8 @@ http.csrf().disabled() // 비활성화
   </div>
 </div>
 ```
+
+---
 
 ## Reference
 
