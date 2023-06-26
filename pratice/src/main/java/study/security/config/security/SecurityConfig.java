@@ -3,7 +3,6 @@ package study.security.config.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -55,7 +54,7 @@ public class SecurityConfig {
      * once-per-request handling, so don't re-do security checking
      */
     @Bean
-    public SecurityFilterChain ajaxFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // csrf 방어 disable
                 .csrf().disable()
