@@ -6,13 +6,13 @@ import study.security.domain.Member;
 
 @AllArgsConstructor
 @Getter
-public class MemberResponse {
+public class MemberResp {
 
     private String username;
     private String email;
     private String role;
 
-    public static MemberResponse of(Member member) {
-        return new MemberResponse(member.getUsername(), member.getEmail(), member.getRole().toString());
+    public static MemberResp of(Member member) {
+        return new MemberResp(member.getUsername(), member.getEmail(), member.getRole().toString());
     }
 }

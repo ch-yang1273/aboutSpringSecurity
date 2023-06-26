@@ -2,11 +2,10 @@ package study.security.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import study.security.domain.AuthorizationResource;
 
 @NoArgsConstructor
 @Getter
-public class AddResourceRequest {
+public class AddResourceReq {
     private int orderNum;
     private String resourceType;
     private String resourceName;

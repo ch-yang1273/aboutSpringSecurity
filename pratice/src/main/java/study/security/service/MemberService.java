@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import study.security.domain.Member;
 import study.security.domain.MemberRole;
 import study.security.domain.MemberRoleRepository;
-import study.security.dto.MemberResponse;
-import study.security.dto.SignupDto;
+import study.security.dto.MemberResp;
+import study.security.dto.SignupReq;
 import study.security.domain.MemberRepository;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void createMember(SignupDto dto) {
+    public void createMember(SignupReq dto) {
         MemberRole memberRole = memberRoleRepository.findByRoleName(dto.getRole()).orElseThrow();
 
         Member member = Member.builder()
@@ -41,9 +41,9 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public List<MemberResponse> getMembers() {
+    public List<MemberResp> getMembers() {
         return memberRepository.findAll().stream()
-                .map(MemberResponse::of)
+                .map(MemberResp::of)
                 .collect(Collectors.toList());
     }
 }

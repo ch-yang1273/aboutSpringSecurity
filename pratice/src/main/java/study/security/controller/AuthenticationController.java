@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import study.security.dto.RoleResponse;
-import study.security.dto.SignupDto;
+import study.security.dto.RoleResp;
+import study.security.dto.SignupReq;
 import study.security.service.MemberRoleService;
 import study.security.service.MemberService;
 
@@ -29,13 +29,13 @@ public class AuthenticationController {
 
     @GetMapping("/signup")
     public String signupForm(Model model) {
-        List<RoleResponse> roles = memberRoleService.getRoles();
+        List<RoleResp> roles = memberRoleService.getRoles();
         model.addAttribute("roles", roles);
         return "authentication/signup";
     }
 
     @PostMapping("/signup-proc")
-    public String createMember(@ModelAttribute SignupDto dto) {
+    public String createMember(@ModelAttribute SignupReq dto) {
         memberService.createMember(dto);
         return "redirect:/login";
     }

@@ -6,12 +6,12 @@ import study.security.domain.MemberRole;
 
 @AllArgsConstructor
 @Getter
-public class RoleResponse {
+public class RoleResp {
 
     private String roleName;
     private String description;
 
-    public static RoleResponse of(MemberRole role) {
-        return new RoleResponse(role.getRoleName(), role.getDescription());
+    public static RoleResp of(MemberRole role) {
+        return new RoleResp(role.getRoleName(), role.getDescription());
     }
 }

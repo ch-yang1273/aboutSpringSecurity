@@ -6,6 +6,33 @@ $(function() {
         });
     });
 
+    $('.add-hierarchy-form-btn').click(function (event) {
+        event.preventDefault();
+        const child = $(this).data('child');
+        $("#admin-table").load("/admin/role/hierarchy?child=" + encodeURIComponent(child) + " .registration", function (){
+            $.getScript("/js/registration.js")
+        });
+    });
+
+    $('#add-hierarchy-btn').click(function () {
+        const childRole = $('#child-role').text();
+        const parentRole = $('#parentRole').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/admin/role/hierarchy',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                childName: childRole,
+                parentName: parentRole
+            })
+        }).always(function (){
+            $("#admin-table").load("/admin/role .management", function (){
+                $.getScript("/js/registration.js")
+            });
+        })
+    });
+
     $('#add-role-btn').click(function () {
         const roleName = $('#role-name').val();
         const description = $('#role-description').val();

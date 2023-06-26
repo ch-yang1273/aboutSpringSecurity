@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import study.security.dto.MemberResponse;
-import study.security.dto.ResourceResponse;
-import study.security.dto.RoleResponse;
+import org.springframework.web.bind.annotation.RequestParam;
+import study.security.dto.MemberResp;
+import study.security.dto.ResourceResp;
+import study.security.dto.RoleResp;
 import study.security.service.AuthorizationResourceService;
 import study.security.service.MemberRoleService;
 import study.security.service.MemberService;
@@ -32,7 +34,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public String getUserTable(Model model) {
-        List<MemberResponse> members = memberService.getMembers();
+        List<MemberResp> members = memberService.getMembers();
         model.addAttribute("members", members);
 
         log.info("Members size={}", members.size());
@@ -41,7 +43,7 @@ public class AdminController {
 
     @GetMapping("/role")
     public String getRoleTable(Model model) {
-        List<RoleResponse> roles = memberRoleService.getRoles();
+        List<RoleResp> roles = memberRoleService.getRoles();
         model.addAttribute("roles", roles);
 
         log.info("Roles size={}", roles.size());
@@ -53,9 +55,19 @@ public class AdminController {
         return "admin/add-role";
     }
 
+    @GetMapping("/role/hierarchy")
+    public String getRoleHierarchyForm(Model model, @RequestParam String child) {
+        List<RoleResp> roles = memberRoleService.getRoles();
+        model.addAttribute("child", child);
+        model.addAttribute("roles", roles);
+
+        log.info("getRoleHierarchyForm");
+        return "admin/add-hierarchy";
+    }
+
     @GetMapping("/resource")
     public String getResourceTable(Model model) {
-        List<ResourceResponse> resources = authorizationResourceService.getResource();
+        List<ResourceResp> resources = authorizationResourceService.getResource();
         model.addAttribute("resources", resources);
 
         log.info("Resources size={}", resources.size());
@@ -64,7 +76,7 @@ public class AdminController {
 
     @GetMapping("/resource/add")
     public String getResourceRegistrationForm(Model model) {
-        List<RoleResponse> roles = memberRoleService.getRoles();
+        List<RoleResp> roles = memberRoleService.getRoles();
         model.addAttribute("roles", roles);
 
         return "admin/add-resource";

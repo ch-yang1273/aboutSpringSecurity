@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.security.domain.MemberRole;
 import study.security.domain.MemberRoleRepository;
-import study.security.dto.RoleResponse;
+import study.security.dto.RoleResp;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,9 +19,9 @@ public class MemberRoleService {
     private final MemberRoleRepository memberRoleRepository;
 
     @Transactional(readOnly = true)
-    public List<RoleResponse> getRoles() {
+    public List<RoleResp> getRoles() {
         return memberRoleRepository.findAll().stream()
-                .map(RoleResponse::of)
+                .map(RoleResp::of)
                 .collect(Collectors.toList());
     }
 

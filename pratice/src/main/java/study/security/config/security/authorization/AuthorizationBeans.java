@@ -5,12 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import study.security.config.security.authentication.AuthenticationBeans;
+import study.security.service.MemberRoleHierarchyService;
 import study.security.service.SecurityResourceService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,10 +24,26 @@ public class AuthorizationBeans {
     String[] permitAllResources = {"/", "/login", "/login-proc", "/signup"};
 
     private final SecurityResourceService securityResourceService;
+    private final MemberRoleHierarchyService memberRoleHierarchyService;
     private final AuthenticationBeans authenticationBeans;
 
+    @Bean
+    public RoleHierarchyImpl roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy(memberRoleHierarchyService.findAllHierarchy());
+        return roleHierarchy;
+    }
+
+    @Bean
+    public RoleHierarchyVoter roleHierarchyVoter() {
+        return new RoleHierarchyVoter(roleHierarchy());
+    }
+
     private List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
-        return List.of(new RoleVoter());
+        List<AccessDecisionVoter<?>> accessDecisionVoters = new ArrayList<>();
+        accessDecisionVoters.add(roleHierarchyVoter());
+
+        return accessDecisionVoters;
     }
 
     private AccessDecisionManager affirmativeBased() {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <title>Add Form</title>
+</head>
+<body>
+<section>
+  <div class="registration">
+    <form id="role-form" class="my-3">
+      <div class="form-group">
+        <label for="child-role"><b>Child : </b></label>
+        <p id="child-role" th:text="${child}"></p>
+      </div>
+      <div class="form-group">
+        <label for="parentRole"><b>Parent : </b></label>
+        <select class="form-control" id="parentRole" name="memberRole">
+          <option th:each="role : ${roles}"
+                  th:value="${role.getRoleName()}"
+                  th:text="${role.getRoleName().split('_')[1]}">Role
+          </option>
+        </select>
+      </div>
+    </form>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-info" id="add-hierarchy-btn">등록</button>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -9,8 +9,8 @@ import study.security.domain.AuthorizationResource;
 import study.security.domain.AuthorizationResourceRepository;
 import study.security.domain.MemberRole;
 import study.security.domain.MemberRoleRepository;
-import study.security.dto.AddResourceRequest;
-import study.security.dto.ResourceResponse;
+import study.security.dto.AddResourceReq;
+import study.security.dto.ResourceResp;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,14 +26,14 @@ public class AuthorizationResourceService {
     private final UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource;
 
     @Transactional(readOnly = true)
-    public List<ResourceResponse> getResource() {
+    public List<ResourceResp> getResource() {
         return authorizationResourceRepository.findAll().stream()
-                .map(ResourceResponse::of)
+                .map(ResourceResp::of)
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public void addResource(AddResourceRequest dto) {
+    public void addResource(AddResourceReq dto) {
         MemberRole memberRole = memberRoleRepository.findByRoleName(dto.getMemberRole()).orElseThrow();
 
         AuthorizationResource entity = AuthorizationResource.builder()

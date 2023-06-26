@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class AddRoleRequest {
+public class AddRoleReq {
 
     private String roleName;
     private String description;
