@@ -1,8 +1,12 @@
 # 인증/인가 관리자 페이지
 
-동적으로 인증과 인가 정보를 설정하는 관리자 페이지입니다.
+동적으로 인증/인가 정보를 설정하는 관리자 페이지입니다.
 
-`Thymeleaf`와 `Bootstrap`으로 프론트 페이지를 작성하였고, `jQuery`를 사용해서 관리자 설정 페이지는 Single page로 동작하도록 구성했습니다. 
+관리자 페이지에서는 "사용자 관리", "리소스 관리", "권한 관리" 기능을 제공하고, 관리자 페이지에서 설정한 내용을 바탕으로 사용자가 접근하려는 리소스에 필요한 권한과 사용자의 권한을 비교하여 접근을 승인/거부 합니다.
+
+`Thymeleaf`와 `Bootstrap`으로 프론트 페이지를 작성하였고, `jQuery`를 사용해서 관리자 설정 페이지가 Single page로 동작하도록 구성했습니다. 
+
+보안 기능에 대한 자세한 설명은 세부정보(Details)에 있습니다.
 
 ---
 
@@ -21,6 +25,7 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3.svg?&style=for-the-badge&logo=bootstrap&logoColor=white)
 
 ---
+
 ## ERD
 
 ```mermaid
