@@ -8,24 +8,26 @@ spring:
             client-id: oauth2-client-app
             client-secret: jYrifO5BXirm9IoHRfJtv1AmKDAw8OWy
             # 자유인데 어디에 쓰지?
+            # 클라이언트를 나타내는 이름으로 자동 생성되는 로그인 페이지에서 노출하는 등에 사용
             client-name: oauth2-client-app
             # "/login/oauth2/code"는 default, "keycloak"은 registration id
             # keycloak의 Client > Access settings > Valid redirect URIs에도 추가 해야 한다.
             # -> http://localhost:8080 과 http://localhost:8080/login/oauth2/code/keycloak
             redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
-            authorization-grant-type: authorization_code
+#            authorization-grant-type: authorization_code
             # client-authentication-method The method used to authenticate the Client with the Provider. The supported values are client_secret_basic, client_secret_post, private_key_jwt, client_secret_jwt and none (public clients).
-            client-authentication-method: client_secret_basic
-            scope:
-              - openid
-              - email
-              - profile
+#            client-authentication-method: client_secret_basic
+#            scope:
+#              - openid
+#              - email
+#              - profile
+
         provider:
           keycloak:
             # http://localhost:8083/realms/OAuth2/.well-known/openid-configuration
-            authorization-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/auth
-            token-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/token
+#            authorization-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/auth
+#            token-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/token
             issuer-uri: http://localhost:8083/realms/OAuth2
-            user-info-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/userinfo
-            jwk-set-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/certs
-            user-name-attribute: preferred_username
+#            user-info-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/userinfo
+#            jwk-set-uri: http://localhost:8083/realms/OAuth2/protocol/openid-connect/certs
+#            user-name-attribute: preferred_username
