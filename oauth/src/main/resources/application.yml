@@ -4,8 +4,8 @@ spring:
       client:
         registration:
           kakao:
-            client-id: bae9aa27df816d042ef63a7e710aba74
-            client-secret: ifI2sbLAeNkDHivOvwL2yzgd1E33A4Pu
+#            client-id: application-dev.yml
+#            client-secret: application-dev.yml
             redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             authorization-grant-type: authorization_code
             scope: openid,profile_nickname,profile_image,account_email
@@ -14,6 +14,8 @@ spring:
             # "issuer-uri"만 있으면 모든 Endpoint를 알아서 가져온다.
             # https://kauth.kakao.com/.well-known/openid-configuration
             issuer-uri: https://kauth.kakao.com
+  profiles:
+    active: dev
 
 logging:
   level:
