@@ -28,16 +28,18 @@
 
 > 나중에 이 단계를 따라 Spring OAuth2 디버깅을 진행합니다.
 
-1. Authorization Endpoint에 code 요청
+1. [Authorization Endpoint에 code 요청](#1단계-authorization-endpoint에-code-요청)
    - Client는 User를 설정 정보와 함께 Authorization Endpoint로 리디렉션한다.
    - Provider는 로그인 페이지로 리디렉션하여 사용자의 신원을 인증하고 권한을 요청한다.
    - 사용자가 로그인하고 권한을 승인하면, Provider는 URL에 인증 코드를 포함하여 Client로 리디렉션한다.
-2. Token Endpoint에 Token 요청
+2. [Token Endpoint에 Token 요청](#2단계-token-endpoint에-token-요청)
    - Client는 받은 인증 코드와 Client ID/Secret 등을 포함하여 Token Endpoint에 Token을 요청한다.
    - access_token, refresh_token 등을 발급 받고, OIDC 프로토콜을 사용한다면 id_token도 발급 받는다.
-3. UserInfo Endpoint에 UserInfo 요청
+3. [UserInfo Endpoint에 UserInfo 요청](#3단계-userinfo-endpoint에-userinfo-요청)
    - Client는 Access Token으로 UserInfo Endpoint에 사용자 정보를 요청한다.
    - id_token(JWT 포맷)을 발급 받았다면, 이 Endpoint에 접근할 필요없이 id_token에서 정보를 꺼낸다.
+4. [인증 객체 생성](#4단계-인증-객체-생성)
+   - UserInfo로부터 인증 객체를 생성한다.
 
 ```mermaid
 sequenceDiagram
@@ -183,22 +185,22 @@ AuthenticationManager
 
 [DefaultAuthorizationCodeTokenResponseClient]
 
-- 여기서 Code를 Token으로 교환하기 위한 Request와 Response를 확인할 수 있다.
+- 여기서 Code를 Token으로 교환하는 Request와 Response를 확인할 수 있다.
+- request와 Response의 body를 확인
 
 ![DefaultAuthorizationCodeTokenResponseClient에서CodeToken교환](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/DefaultAuthorizationCodeTokenResponseClient%EC%97%90%EC%84%9CCodeToken%EA%B5%90%ED%99%98.png?raw=true)
 
 ### 3단계: UserInfo Endpoint에 UserInfo 요청
 
-여기서는 OpenID Connect 프로토콜을 사용하여 UserInfo Endpoint에 요청하지 않고, ID Token에서 User 정보를 확인합니다.
+OpenID Connect 프로토콜을 사용하기 때문에 UserInfo Endpoint에 요청하지 않고, ID Token에서 User 정보를 꺼냅니다.
 
 [OidcAuthorizationCodeAuthenticationProvider]
 
 위에서 토큰 교환을 진행한 `OidcAuthorizationCodeAuthenticationProvider` 클래스의 authenticate 메서드를 따라
-
 `OidcAuthorizationCodeAuthenticationProvider#createOidcToken`에 디버깅 포인트를 찍으면
 JWT로부터 OidcIdToken을 생성하는 과정을 확인 할 수 있습니다.
 
-### 4단계: OAuth2User 생성
+### 4단계: 인증 객체 생성
 
 위에서 생성한 OidcIdToken을 기반으로 OAuth2User(OidcUser)를 만들어 Authentication의 principal 속성에 저장한다.
 
