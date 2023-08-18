@@ -151,6 +151,8 @@ naver : 네이버는 OIDC를 지원하지 하지 않아, 엔드포인트가 없�
 
 이 로그인 버튼은 "http://localhost:8080/oauth2/authorization/kakao" 경로로 링크되어 있고, Code 요청 URI를 자동으로 생성하여 리디렉션합니다.
 
+![로그인버튼](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/%EB%A1%9C%EA%B7%B8%EC%9D%B8%EB%B2%84%ED%8A%BC.png?raw=true)
+
 [OAuth2AuthorizationRequestRedirectFilter]
 
 이 클래스에서 Code를 요청하는 URI를 생성하여 Authorization Endpoint로 리디렉션하는 과정을 볼 수 있다.
