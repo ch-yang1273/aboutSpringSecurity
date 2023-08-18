@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
@@ -13,8 +15,16 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-md-12 text-center">
-      <!-- /login 경로로 이동하는 링크 생성 -->
-      <a href="/login-page" class="btn btn-primary">Login</a>
+      <!-- 로그인 되었는지 확인 -->
+      <div sec:authorize="isAuthenticated()">
+        <p th:text="'환영합니다, ' + ${nickname} + '님! '">Username</p>
+        <!-- /logout 경로로 이동하는 링크 생성 -->
+        <a href="/logout" class="btn btn-primary">Logout</a>
+      </div>
+      <div sec:authorize="!isAuthenticated()">
+        <!-- /login-page 경로로 이동하는 링크 생성 -->
+        <a href="/login-page" class="btn btn-primary">Login</a>
+      </div>
     </div>
   </div>
 </div>

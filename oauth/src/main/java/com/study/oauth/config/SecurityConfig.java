@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/api/user").access("hasAnyAuthority('SCOPE_profile_image','SCOPE_profile_nickname')")
                 .antMatchers("/api/oidc").access("hasAnyAuthority('SCOPE_openid')")
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/login-page").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login(
