@@ -132,7 +132,6 @@ spring:
 
 </details>
 
-
 [Well-known 엔드포인트 포맷 및 예시]
 
 well-known 엔드포인트 포맷이 정해져 있으므로 `issuer-uri`만 설정하면 다음 경로에서 메타 데이터를 수집합니다.
@@ -143,6 +142,8 @@ Kakao : https://kauth.kakao.com/.well-known/openid-configuration
 Google : https://accounts.google.com/.well-known/openid-configuration
 naver : 네이버는 OIDC를 지원하지 하지 않아, 엔드포인트가 없음
 ```
+
+### 
 
 ## Spring OAuth2 로그인 과정 디버깅
 
@@ -199,6 +200,8 @@ OpenID Connect 프로토콜을 사용하기 때문에 UserInfo Endpoint에 요�
 위에서 토큰 교환을 진행한 `OidcAuthorizationCodeAuthenticationProvider` 클래스의 authenticate 메서드를 따라
 `OidcAuthorizationCodeAuthenticationProvider#createOidcToken`에 디버깅 포인트를 찍으면
 JWT로부터 OidcIdToken을 생성하는 과정을 확인 할 수 있습니다.
+
+![FromJwtToIdToken](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/FromJwtToIdToken.png?raw=true)
 
 ### 4단계: 인증 객체 생성
 
