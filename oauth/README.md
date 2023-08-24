@@ -151,7 +151,7 @@ naver : 네이버는 OIDC를 지원하지 하지 않아, 엔드포인트가 없�
 
 이 로그인 버튼은 "http://localhost:8080/oauth2/authorization/kakao" 경로로 링크되어 있고, Code 요청 URI를 자동으로 생성하여 리디렉션합니다.
 
-![로그인버튼](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/%EB%A1%9C%EA%B7%B8%EC%9D%B8%EB%B2%84%ED%8A%BC.png?raw=true)
+![로그인버튼](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/images/AuthorizationCodeGrant/%EB%A1%9C%EA%B7%B8%EC%9D%B8%EB%B2%84%ED%8A%BC.png?raw=true)
 
 [OAuth2AuthorizationRequestRedirectFilter]
 
@@ -161,7 +161,7 @@ naver : 네이버는 OIDC를 지원하지 하지 않아, 엔드포인트가 없�
 
 - `redirectUri`가 "/login/oauth2/code/kakao"로 설정되어 있다. Provider는 이 경로로 발급한 code를 전달한다.
 
-![Code요청Uri생성](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/Code%EC%9A%94%EC%B2%ADUri%EC%83%9D%EC%84%B1.png?raw=true)
+![Code요청Uri생성](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/images/AuthorizationCodeGrant/Code%EC%9A%94%EC%B2%ADUri%EC%83%9D%EC%84%B1.png?raw=true)
 
 ```bash
 # 생성된 URI
@@ -174,7 +174,7 @@ https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=bae9aa27df8
 
 `OAuth2LoginAuthenticationFilter#attemptAuthentication`에 디버깅 포인트
 
-![Provider가전달한code확인](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/Provider%EA%B0%80%EC%A0%84%EB%8B%AC%ED%95%9Ccode%ED%99%95%EC%9D%B8.png?raw=true)
+![Provider가전달한code확인](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/images/AuthorizationCodeGrant/Provider%EA%B0%80%EC%A0%84%EB%8B%AC%ED%95%9Ccode%ED%99%95%EC%9D%B8.png?raw=true)
 
 - 사용자가 로그인하고 권한을 승인한 후, Provider가 발급한 code를 확인
 - 이 메서드에서 code를 token으로 바로 교환한다.
@@ -191,7 +191,7 @@ AuthenticationManager
 - 여기서 Code를 Token으로 교환하는 Request와 Response를 확인할 수 있다.
 - request와 Response의 body를 확인
 
-![DefaultAuthorizationCodeTokenResponseClient에서CodeToken교환](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/DefaultAuthorizationCodeTokenResponseClient%EC%97%90%EC%84%9CCodeToken%EA%B5%90%ED%99%98.png?raw=true)
+![DefaultAuthorizationCodeTokenResponseClient에서CodeToken교환](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/images/AuthorizationCodeGrant/DefaultAuthorizationCodeTokenResponseClient%EC%97%90%EC%84%9CCodeToken%EA%B5%90%ED%99%98.png?raw=true)
 
 ### 3단계: UserInfo Endpoint에 UserInfo 요청
 
@@ -203,13 +203,13 @@ OpenID Connect 프로토콜을 사용하기 때문에 UserInfo Endpoint에 요�
 `OidcAuthorizationCodeAuthenticationProvider#createOidcToken`에 디버깅 포인트를 찍으면
 JWT로부터 OidcIdToken을 생성하는 과정을 확인 할 수 있습니다.
 
-![FromJwtToIdToken](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/FromJwtToIdToken.png?raw=true)
+![FromJwtToIdToken](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/images/AuthorizationCodeGrant/FromJwtToIdToken.png?raw=true)
 
 ### 4단계: 인증 객체 생성
 
 위에서 생성한 OidcIdToken을 기반으로 OAuth2User(OidcUser)를 만들어 Authentication의 principal 속성에 저장한다.
 
-![UserService로부터OidcUser생성](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/image/AuthorizationCodeGrant/UserService%EB%A1%9C%EB%B6%80%ED%84%B0OidcUser%EC%83%9D%EC%84%B1.png?raw=true)
+![UserService로부터OidcUser생성](https://github.com/ch-yang1273/aboutSpringSecurity/blob/master/oauth/images/AuthorizationCodeGrant/UserService%EB%A1%9C%EB%B6%80%ED%84%B0OidcUser%EC%83%9D%EC%84%B1.png?raw=true)
 
 ## Reference
 
